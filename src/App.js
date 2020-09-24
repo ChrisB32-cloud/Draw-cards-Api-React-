@@ -30,11 +30,11 @@ class App extends Component {
     })
 
 
-    const callDeck = localStorage.getItem('deck') === 0 ? '' : localStorage.getItem('deck');
-    const callCount = localStorage.getItem('count') === '' ? '' : localStorage.getItem('count');
-    const callImg = localStorage.getItem('img') === [] ? [] : [localStorage.getItem('img')];
-    const callSuit = localStorage.getItem('suits') === [] ? [] : [localStorage.getItem('suits')];
-    const callValue = localStorage.getItem('values') === [] ? [] : [localStorage.getItem('values')];
+    // const callDeck = localStorage.getItem('deck') === 0 ? '' : localStorage.getItem('deck');
+    // const callCount = localStorage.getItem('count') === '' ? '' : localStorage.getItem('count');
+    // const callImg = localStorage.getItem('img') === [] ? [] : [localStorage.getItem('img')];
+    // const callSuit = localStorage.getItem('suits') === [] ? [] : [localStorage.getItem('suits')];
+    // const callValue = localStorage.getItem('values') === [] ? [] : [localStorage.getItem('values')];
 
     // const iterateCallImg = callImg.map(img => img)
 
@@ -56,32 +56,71 @@ class App extends Component {
 
 
   }
+  // async handleClick() {
+  // const request = await axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/`)
+
+  // let dataApi = request.data.cards[0]
+
+  // // console.log(request.data.cards);
+
+  // this.setState({
+  //   cardCount: this.state.cardCount - 1,
+  //   cardImg: [...this.state.cardImg, dataApi.images.png],
+  //   // cardImg: [dataApi.images.png],
+  //   cardSuit: [...this.state.cardSuit, dataApi.suit],
+  //   cardValue: [...this.state.cardValue, dataApi.value]
+
+  // })
+
+  // const { deckID, cardCount, cardImg, cardSuit, cardValue } = this.state
+
+
+
+  // localStorage.setItem('deck', deckID)
+  // localStorage.setItem('count', cardCount)
+  // localStorage.setItem('img', cardImg)
+  // localStorage.setItem('suits', cardSuit)
+  // localStorage.setItem('values', cardValue)
+  // }
+
   async handleClick() {
-    const request = await axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/`)
+    try {
+      const request = await axios.get(`https://deckofcardsapi.com/api/deck/${this.state.deckID}/draw/`)
 
-    let dataApi = request.data.cards[0]
+      let dataApi = request.data.cards[0]
 
-    // console.log(request.data.cards);
+      console.log(request.data.cards);
 
-    this.setState({
-      cardCount: this.state.cardCount - 1,
-      cardImg: [...this.state.cardImg, dataApi.images.png],
-      // cardImg: [dataApi.images.png],
-      cardSuit: [...this.state.cardSuit, dataApi.suit],
-      cardValue: [...this.state.cardValue, dataApi.value]
+      // Theres a better way to do this. 
+      // Need to rework state
 
-    })
+      if (request.data.remaining === 0) {
+        throw new Error("No Cards left")
+      }
 
-    const { deckID, cardCount, cardImg, cardSuit, cardValue } = this.state
+      this.setState({
+        cardCount: this.state.cardCount - 1,
+        cardImg: [...this.state.cardImg, dataApi.images.png],
+        // cardImg: [dataApi.images.png],
+        cardSuit: [...this.state.cardSuit, dataApi.suit],
+        cardValue: [...this.state.cardValue, dataApi.value]
+
+      })
+
+      const { deckID, cardCount, cardImg, cardSuit, cardValue } = this.state
 
 
 
-    localStorage.setItem('deck', deckID)
-    localStorage.setItem('count', cardCount)
-    localStorage.setItem('img', cardImg)
-    localStorage.setItem('suits', cardSuit)
-    localStorage.setItem('values', cardValue)
+      localStorage.setItem('deck', deckID)
+      localStorage.setItem('count', cardCount)
+      localStorage.setItem('img', cardImg)
+      localStorage.setItem('suits', cardSuit)
+      localStorage.setItem('values', cardValue)
+    } catch (error) {
+      //
+    }
   }
+
 
   componentDidUpdate() {
 
@@ -103,6 +142,9 @@ class App extends Component {
     // console.log(this.state.deckID);
     // console.log(this.state.cardCount);
     // console.log(this.state.cardImg);
+
+    // May be a better Idea to put the map() here 
+    // than in the PLayingCard Component
 
     return (
       <div className="App">

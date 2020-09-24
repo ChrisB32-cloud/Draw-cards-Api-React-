@@ -24,7 +24,8 @@ class PlayingCard extends Component {
 
         return (
             <div>
-                {this.props.count === 0 ? <div>
+                {this.props.count === 1 ? <div>
+                    {alert("No More Cards")}
                     <p>No More Cards</p> <br></br> <br></br>
                     {cards}
                 </div> : <div>
