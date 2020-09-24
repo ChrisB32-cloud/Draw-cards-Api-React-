@@ -13,7 +13,8 @@ class App extends Component {
       cardCount: '',
       cardImg: [],
       cardSuit: [],
-      cardValue: []
+      cardValue: [],
+
     }
 
     this.handleClick = this.handleClick.bind(this)
@@ -36,6 +37,8 @@ class App extends Component {
     const callValue = localStorage.getItem('values') === [] ? [] : [localStorage.getItem('values')];
 
     // const iterateCallImg = callImg.map(img => img)
+
+
 
     // console.log(callDeck);
     // console.log(callCount);
@@ -104,7 +107,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* <h1>Main Component</h1> */}
-        <PlayingCard passClick={this.handleClick} img={this.state.cardImg} suit={this.state.cardSuit} value={this.state.cardValue} />
+        <PlayingCard passClick={this.handleClick} img={this.state.cardImg} suit={this.state.cardSuit} value={this.state.cardValue} count={this.state.cardCount} />
       </div>
     );
   }

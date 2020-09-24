@@ -16,6 +16,7 @@ class PlayingCard extends Component {
 
     render() {
         // console.log(this.props.img);
+        // console.log(this.props.count);
 
         const cards = this.props.img.map((m, idx) => (
             <img src={m} key={idx} alt={`${this.props.value} of ${this.props.suit}`} />
@@ -23,12 +24,15 @@ class PlayingCard extends Component {
 
         return (
             <div>
-                {/* <h2>Card Component</h2> */}
-                <button className='dealButton' onClick={this.handleNewClick} >DEAL CARD</button>
-                <br />
-                <br />
-                {/* <img src={this.props.img} alt={`${this.props.value} of ${this.props.suit}`} /> */}
-                <p>{cards}</p>
+                {this.props.count === 0 ? <div>
+                    <p>No More Cards</p> <br></br> <br></br>
+                    {cards}
+                </div> : <div>
+                        <button className='dealButton' onClick={this.handleNewClick} >DEAL CARD</button>
+                        <br />
+                        <br />
+                        <p>{cards}</p>
+                    </div>}
             </div>
         );
     }
